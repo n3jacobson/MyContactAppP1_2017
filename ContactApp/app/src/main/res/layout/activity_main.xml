@@ -82,7 +82,7 @@
         android:layout_height="wrap_content"
         android:text="Contacts"
         android:id="@+id/button_getContacts"
-        android:onClick="addData"
+        android:onClick="viewData"
         android:layout_alignTop="@+id/button_add"
         android:layout_toRightOf="@+id/button_add"
         android:layout_toEndOf="@+id/button_add"
