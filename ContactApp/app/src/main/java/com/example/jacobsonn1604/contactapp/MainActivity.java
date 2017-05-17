@@ -1,5 +1,6 @@
 package com.example.jacobsonn1604.contactapp;
 
+import android.app.AlertDialog;
 import android.database.Cursor;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -52,15 +53,22 @@ public class MainActivity extends AppCompatActivity{
         }
         StringBuffer buffer = new StringBuffer();
         while (res.moveToNext()) {
-            buffer.append(res.getString(res.getPosition()));
+            for(int col = 0; col <4;col++) {
+                buffer.append(res.getString(col));
+                buffer.append("\n");
+            }
         }
+        showMessage("Data", buffer.toString());
         //Setup loop with Cursor moveToNext method
         //  append each column to the buffer
         //  use the getString method
-        showMessage("Data", buffer.toString());
     }
 
     private void showMessage(String title, String message) {
-        Log.d(title,message);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true); // Cancel using back button
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.show();
     }
 }
