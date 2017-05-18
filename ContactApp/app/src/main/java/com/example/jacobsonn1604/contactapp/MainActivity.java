@@ -1,6 +1,7 @@
 package com.example.jacobsonn1604.contactapp;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -14,7 +15,7 @@ import android.widget.EditText;
 
 
 public class MainActivity extends AppCompatActivity{
-
+    public static final String EXTRA_MESSAGE = "com.example.search.MESSAGE";
     DataBaseHelper myDb;
     EditText editName;
     EditText editAddress;
@@ -71,4 +72,33 @@ public class MainActivity extends AppCompatActivity{
         builder.setMessage(message);
         builder.show();
     }
+
+    public void search(View view) {
+        Intent intent = new Intent(this, findData.class);
+        EditText editText = (EditText) findViewById(R.id.editText_search);
+        String name = editText.getText().toString();
+        Cursor res = myDb.getAllData();
+        if(res.getCount() == 0){
+            showMessage("Error", "No data found in database");
+            return;
+        }
+        StringBuffer buffer = new StringBuffer();
+        int discoveries = 0;
+        while (res.moveToNext()) {
+            if (name.compareTo(res.getString(1)) == 0) {
+                for (int col = 0; col < 4; col++) {
+                    buffer.append(res.getString(col));
+                    buffer.append("\n");
+                }
+                buffer.append("\n\n\n");
+                discoveries++;
+            }
+        }
+        String message = discoveries + " discoveries found: \n\n\n" + buffer.toString();
+        intent.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intent);
+    }
+
+
+
 }
