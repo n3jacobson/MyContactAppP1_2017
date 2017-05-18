@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity{
@@ -38,11 +39,15 @@ public class MainActivity extends AppCompatActivity{
         boolean isInserted = myDb.insertData(editName.getText().toString(), editAddress.getText().toString(), editAge.getText().toString());
         if(isInserted == true){
             //Create toast message to user indicating data inserted correctly
+            Toast toast = Toast.makeText(getApplicationContext(),"Data insertion successful", Toast.LENGTH_SHORT);
+            toast.show();
             Log.d("MyContact", "Data insertion successful");
         }
         else{
             //Create toast message to user indicating data inserted incorrectly
             Log.d("MyContact", "Data insertion NOT successful");
+            Toast toast = Toast.makeText(getApplicationContext(),"Data insertion NOT successful", Toast.LENGTH_SHORT);
+            toast.show();
         }
     }
 
